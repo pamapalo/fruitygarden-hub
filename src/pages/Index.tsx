@@ -22,8 +22,8 @@ const Index = () => {
           className="absolute inset-0 bg-cover bg-center scale-110 animate-[scale-in_1.5s_ease-out]"
           style={{ backgroundImage: `url(${heroImage})` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-secondary/85 to-accent/90 animate-fade-in"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/25 to-accent/30 animate-fade-in"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent"></div>
         </div>
         
         <div className="relative z-10 text-center text-primary-foreground max-w-5xl px-6 animate-slide-up">

@@ -15,21 +15,21 @@ const CategorySection = ({ title, description, icon: Icon, color, link }: Catego
   const navigate = useNavigate();
   
   const colorClasses = {
-    primary: "bg-gradient-to-br from-primary/10 to-primary/5 hover:from-primary/20 hover:to-primary/10 border-primary/40 group-hover:border-primary shadow-primary/20",
+    primary: "bg-gradient-to-br from-primary/15 via-citrus-yellow/15 to-primary/10 hover:from-primary/25 hover:via-citrus-yellow/25 hover:to-primary/20 border-primary/50 group-hover:border-citrus-yellow shadow-[0_8px_30px_rgb(239,68,68,0.3)]",
     secondary: "bg-gradient-to-br from-secondary/10 to-secondary/5 hover:from-secondary/20 hover:to-secondary/10 border-secondary/40 group-hover:border-secondary shadow-secondary/20",
     accent: "bg-gradient-to-br from-accent/10 to-accent/5 hover:from-accent/20 hover:to-accent/10 border-accent/40 group-hover:border-accent shadow-accent/20",
     pink: "bg-gradient-to-br from-pink/10 to-pink/5 hover:from-pink/20 hover:to-pink/10 border-pink/40 group-hover:border-pink shadow-pink/20",
   };
 
   const iconColors = {
-    primary: "text-primary group-hover:scale-110",
+    primary: "text-primary group-hover:text-citrus-yellow group-hover:scale-110",
     secondary: "text-secondary group-hover:scale-110",
     accent: "text-accent group-hover:scale-110",
     pink: "text-pink group-hover:scale-110",
   };
 
   const bgColors = {
-    primary: "bg-primary/10 group-hover:bg-primary/20",
+    primary: "bg-gradient-to-br from-primary/15 to-citrus-yellow/15 group-hover:from-primary/25 group-hover:to-citrus-yellow/25",
     secondary: "bg-secondary/10 group-hover:bg-secondary/20",
     accent: "bg-accent/10 group-hover:bg-accent/20",
     pink: "bg-pink/10 group-hover:bg-pink/20",

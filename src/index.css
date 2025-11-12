@@ -48,7 +48,8 @@ All colors MUST be HSL.
     --purple-veggie: 280 60% 50%;
 
     /* Gradients */
-    --gradient-fruits: linear-gradient(135deg, hsl(0 85% 55%), hsl(45 90% 55%));
+    --gradient-fruits: linear-gradient(135deg, hsl(0 85% 55%), hsl(45 90% 55%), hsl(35 95% 60%));
+    --gradient-fruits-light: linear-gradient(135deg, hsl(0 85% 55% / 0.15), hsl(45 90% 55% / 0.15));
     --gradient-vegetables: linear-gradient(135deg, hsl(120 60% 45%), hsl(280 60% 50%));
     --gradient-hero: linear-gradient(135deg, hsl(0 85% 55% / 0.95), hsl(120 60% 45% / 0.95));
 
