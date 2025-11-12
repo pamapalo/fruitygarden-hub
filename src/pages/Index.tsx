@@ -3,16 +3,34 @@ import ProductCard from "@/components/ProductCard";
 import CategorySection from "@/components/CategorySection";
 import { Apple, Carrot, ShoppingBag, Phone, Mail, MapPin, Sparkles, TrendingUp, Award } from "lucide-react";
 import heroImage from "@/assets/hero-produce.jpg";
+import { supabase } from "@/integrations/supabase/client";
+import { useState, useEffect } from "react";
+
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  category: "fruits" | "vegetables" | "others";
+}
 
 const Index = () => {
-  const products = [
-    { name: "Fresas Frescas", description: "Fresas dulces y jugosas, recién cosechadas", price: "$4.99/lb", category: "fruits" as const },
-    { name: "Arándanos Premium", description: "Arándanos seleccionados de alta calidad", price: "$6.99/lb", category: "fruits" as const },
-    { name: "Naranjas Jugosas", description: "Cítricos frescos con alto contenido de vitamina C", price: "$3.99/lb", category: "fruits" as const },
-    { name: "Lechuga Orgánica", description: "Lechuga fresca cultivada sin pesticidas", price: "$2.99/unidad", category: "vegetables" as const },
-    { name: "Cebollas Moradas", description: "Cebollas frescas ideales para ensaladas", price: "$2.49/lb", category: "vegetables" as const },
-    { name: "Remolachas", description: "Remolachas nutritivas y sabrosas", price: "$3.49/lb", category: "vegetables" as const },
-  ];
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (!error && data) {
+        setProducts(data as Product[]);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <div className="min-h-screen overflow-hidden">
