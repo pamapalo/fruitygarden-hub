@@ -12,6 +12,7 @@ interface CategorySectionProps {
 
 const CategorySection = ({ title, description, icon: Icon, color, link }: CategorySectionProps) => {
   const navigate = useNavigate();
+  
   const colorClasses = {
     primary: "bg-primary/10 hover:bg-primary/20 border-primary/30",
     secondary: "bg-secondary/10 hover:bg-secondary/20 border-secondary/30",
@@ -28,7 +29,7 @@ const CategorySection = ({ title, description, icon: Icon, color, link }: Catego
 
   return (
     <Card 
-      className={`p-8 transition-all duration-300 cursor-pointer border-2 ${colorClasses[color]} hover:shadow-xl hover:scale-105`}
+      className={`p-8 transition-all duration-300 cursor-pointer border-2 ${colorClasses[color]}`}
       onClick={() => navigate(link)}
     >
       <div className="flex flex-col items-center text-center space-y-4">
