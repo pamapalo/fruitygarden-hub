@@ -84,18 +84,21 @@ const Index = () => {
               description="Fresas, arándanos, cítricos y más"
               icon={Apple}
               color="primary"
+              link="/frutas"
             />
             <CategorySection
               title="Vegetales"
               description="Vegetales frescos y orgánicos"
               icon={Carrot}
               color="secondary"
+              link="/vegetales"
             />
             <CategorySection
               title="Otros Productos"
               description="Selección especial de productos variados"
               icon={ShoppingBag}
               color="pink"
+              link="/otros"
             />
           </div>
         </div>

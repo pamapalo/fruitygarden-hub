@@ -1,14 +1,17 @@
 import { Card } from "@/components/ui/card";
 import { LucideIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface CategorySectionProps {
   title: string;
   description: string;
   icon: LucideIcon;
   color: "primary" | "secondary" | "accent" | "pink";
+  link: string;
 }
 
-const CategorySection = ({ title, description, icon: Icon, color }: CategorySectionProps) => {
+const CategorySection = ({ title, description, icon: Icon, color, link }: CategorySectionProps) => {
+  const navigate = useNavigate();
   const colorClasses = {
     primary: "bg-primary/10 hover:bg-primary/20 border-primary/30",
     secondary: "bg-secondary/10 hover:bg-secondary/20 border-secondary/30",
@@ -24,7 +27,10 @@ const CategorySection = ({ title, description, icon: Icon, color }: CategorySect
   };
 
   return (
-    <Card className={`p-8 transition-all duration-300 cursor-pointer border-2 ${colorClasses[color]}`}>
+    <Card 
+      className={`p-8 transition-all duration-300 cursor-pointer border-2 ${colorClasses[color]} hover:shadow-xl hover:scale-105`}
+      onClick={() => navigate(link)}
+    >
       <div className="flex flex-col items-center text-center space-y-4">
         <div className={`p-4 rounded-full bg-card shadow-md ${iconColors[color]}`}>
           <Icon className="h-12 w-12" />
