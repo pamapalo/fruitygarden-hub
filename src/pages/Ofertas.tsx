@@ -17,13 +17,14 @@ interface Product {
   price: string;
   category: string;
   discount_percentage?: number;
+  original_price?: string;
 }
 
 const Ofertas = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [newProduct, setNewProduct] = useState({ name: "", description: "", price: "", discount_percentage: "" });
+  const [newProduct, setNewProduct] = useState({ name: "", description: "", price: "", discount_percentage: "", original_price: "" });
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -58,13 +59,14 @@ const Ofertas = () => {
       price: newProduct.price,
       category: "offers",
       discount_percentage: newProduct.discount_percentage ? parseInt(newProduct.discount_percentage) : null,
+      original_price: newProduct.original_price || null,
     });
 
     if (error) {
       toast({ title: "Error", description: "No se pudo agregar la oferta", variant: "destructive" });
     } else {
       toast({ title: "Éxito", description: "Oferta agregada correctamente" });
-      setNewProduct({ name: "", description: "", price: "", discount_percentage: "" });
+      setNewProduct({ name: "", description: "", price: "", discount_percentage: "", original_price: "" });
       setOpen(false);
       fetchProducts();
     }
@@ -132,12 +134,13 @@ const Ofertas = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="price">Precio Especial</Label>
+                  <Label htmlFor="original_price">Precio Original (COP)</Label>
                   <Input
-                    id="price"
-                    value={newProduct.price}
-                    onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
-                    placeholder="$9.99"
+                    id="original_price"
+                    type="number"
+                    value={newProduct.original_price}
+                    onChange={(e) => setNewProduct({ ...newProduct, original_price: e.target.value })}
+                    placeholder="50000"
                   />
                 </div>
                 <div>
@@ -150,6 +153,16 @@ const Ofertas = () => {
                     value={newProduct.discount_percentage}
                     onChange={(e) => setNewProduct({ ...newProduct, discount_percentage: e.target.value })}
                     placeholder="20"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="price">Precio con Descuento (COP)</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    value={newProduct.price}
+                    onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+                    placeholder="40000"
                   />
                 </div>
                 <Button onClick={handleAddProduct} className="w-full">
@@ -186,7 +199,21 @@ const Ofertas = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-pink">{product.price}</span>
+                    <div className="flex flex-col gap-1">
+                      {product.original_price && (
+                        <span className="text-sm text-muted-foreground line-through">
+                          ${parseInt(product.original_price).toLocaleString('es-CO')} COP
+                        </span>
+                      )}
+                      <span className="text-2xl font-bold text-pink">
+                        ${parseInt(product.price).toLocaleString('es-CO')} COP
+                      </span>
+                      {product.original_price && (
+                        <span className="text-xs text-accent font-semibold">
+                          Ahorras: ${(parseInt(product.original_price) - parseInt(product.price)).toLocaleString('es-CO')} COP
+                        </span>
+                      )}
+                    </div>
                     <Button
                       variant="destructive"
                       size="sm"

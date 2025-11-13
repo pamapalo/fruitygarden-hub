@@ -9,9 +9,10 @@ interface ProductCardProps {
   category: "fruits" | "vegetables" | "others" | "offers";
   image?: string;
   discount_percentage?: number;
+  original_price?: string;
 }
 
-const ProductCard = ({ name, description, price, category, discount_percentage }: ProductCardProps) => {
+const ProductCard = ({ name, description, price, category, discount_percentage, original_price }: ProductCardProps) => {
   const categoryConfig = {
     fruits: {
       borderColor: "border-l-primary",
@@ -64,9 +65,21 @@ const ProductCard = ({ name, description, price, category, discount_percentage }
       
       <CardContent className="relative z-10">
         <div className="flex items-center justify-between">
-          <span className={`text-3xl font-black ${config.priceColor} group-hover:scale-110 transition-transform`}>
-            {price}
-          </span>
+          <div className="flex flex-col gap-1">
+            {original_price && (
+              <span className="text-sm text-muted-foreground line-through">
+                ${parseInt(original_price).toLocaleString('es-CO')} COP
+              </span>
+            )}
+            <span className={`text-3xl font-black ${config.priceColor} group-hover:scale-110 transition-transform`}>
+              ${parseInt(price).toLocaleString('es-CO')} COP
+            </span>
+            {original_price && (
+              <span className="text-xs text-accent font-semibold">
+                Ahorras: ${(parseInt(original_price) - parseInt(price)).toLocaleString('es-CO')}
+              </span>
+            )}
+          </div>
           <Button 
             size="sm" 
             variant="default"
