@@ -1,13 +1,47 @@
 import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import CategorySection from "@/components/CategorySection";
 import CartButton from "@/components/CartButton";
 import { Apple, Carrot, ShoppingBag, Phone, Mail, MapPin, Sparkles, TrendingUp, Award } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useState, useRef } from "react";
 import heroImage from "@/assets/hero-produce.jpg";
 import fruitsIcon from "@/assets/fruits-icon.jpg";
 import vegetablesIcon from "@/assets/vegetables-icon.jpg";
 import othersIcon from "@/assets/others-icon.jpg";
 
+interface Product {
+  id: string;
+  name: string;
+  price: string;
+  category: string;
+}
+
 const Index = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const productsRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await supabase
+        .from("products")
+        .select("id, name, price, category")
+        .order("category", { ascending: true });
+      if (data) setProducts(data);
+    };
+    fetchProducts();
+  }, []);
+
+  const scrollToProducts = () => {
+    productsRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const categoryNames: Record<string, string> = {
+    fruits: "Frutas",
+    vegetables: "Vegetales",
+    others: "Otros Productos",
+    offers: "Ofertas"
+  };
   return (
     <div className="min-h-screen overflow-hidden">
       {/* Fixed Cart Button */}
@@ -40,7 +74,12 @@ const Index = () => {
           </p>
           
           <div className="flex flex-wrap gap-6 justify-center animate-fade-in animation-delay-400">
-            <Button variant="hero" size="lg" className="text-lg px-10 py-7 shadow-2xl animate-pulse-glow">
+            <Button 
+              variant="hero" 
+              size="lg" 
+              className="text-lg px-10 py-7 shadow-2xl animate-pulse-glow"
+              onClick={scrollToProducts}
+            >
               <Sparkles className="mr-2 h-6 w-6" />
               Explorar Productos
             </Button>
@@ -60,6 +99,41 @@ const Index = () => {
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
           <div className="w-6 h-10 border-2 border-primary-foreground/50 rounded-full flex justify-center p-2">
             <div className="w-1 h-3 bg-primary-foreground/70 rounded-full animate-[slide-up_1s_ease-in-out_infinite]"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Products Table Section */}
+      <section ref={productsRef} className="py-20 px-6 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              Todos Nuestros Productos
+            </h2>
+            <p className="text-xl text-muted-foreground">Explora nuestra selección completa organizados por categoría</p>
+          </div>
+          
+          <div className="bg-card rounded-2xl shadow-xl overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-lg font-bold">Categoría</TableHead>
+                  <TableHead className="text-lg font-bold">Producto</TableHead>
+                  <TableHead className="text-lg font-bold text-right">Precio</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {products.map((product) => (
+                  <TableRow key={product.id} className="hover:bg-muted/50 transition-colors">
+                    <TableCell className="font-semibold text-primary">
+                      {categoryNames[product.category] || product.category}
+                    </TableCell>
+                    <TableCell className="font-medium">{product.name}</TableCell>
+                    <TableCell className="text-right font-bold text-lg">{product.price}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         </div>
       </section>
