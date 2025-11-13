@@ -104,17 +104,17 @@ const Index = () => {
 
 
       {/* Stats Section */}
-      <section className="py-16 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10">
+      <section className="py-12 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { number: "5000+", label: "Clientes Satisfechos" },
               { number: "100%", label: "Productos Frescos" },
               { number: "24h", label: "Entrega Rápida" }
             ].map((stat, i) => (
-              <div key={i} className="text-center p-8 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="text-5xl font-black text-primary mb-2">{stat.number}</div>
-                <div className="text-lg font-semibold text-muted-foreground">{stat.label}</div>
+              <div key={i} className="text-center p-6 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in" style={{ animationDelay: `${i * 0.1}s` }}>
+                <div className="text-4xl font-black text-primary mb-2">{stat.number}</div>
+                <div className="text-base font-semibold text-muted-foreground">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -122,72 +122,61 @@ const Index = () => {
       </section>
 
       {/* Categories Section */}
-      <section ref={productsRef} className="py-24 px-6 bg-gradient-to-b from-background to-muted/30">
+      <section ref={productsRef} className="py-16 px-6 bg-gradient-to-b from-background to-muted/30">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-5xl md:text-6xl font-black mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Nuestras Categorías
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Explora nuestra selección premium de productos frescos</p>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Explora nuestra selección premium de productos frescos</p>
           </div>
           
-          <div className="space-y-16">
-            {/* Frutas */}
-            <div className="space-y-8">
-              <CategorySection title="Frutas" description="Fresas, arándanos, cítricos y más" icon={Apple} color="primary" link="/frutas" image={fruitsIcon} />
-            </div>
-
-            {/* Vegetales */}
-            <div className="space-y-8">
-              <CategorySection title="Vegetales" description="Vegetales frescos y orgánicos" icon={Carrot} color="secondary" link="/vegetales" image={vegetablesIcon} />
-            </div>
-
-            {/* Otros Productos */}
-            <div className="space-y-8">
-              <CategorySection title="Otros Productos" description="Selección especial de productos variados" icon={ShoppingBag} color="pink" link="/otros" image={othersIcon} />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <CategorySection title="Frutas" description="Fresas, arándanos, cítricos y más" icon={Apple} color="primary" link="/frutas" image={fruitsIcon} />
+            <CategorySection title="Vegetales" description="Vegetales frescos y orgánicos" icon={Carrot} color="secondary" link="/vegetales" image={vegetablesIcon} />
+            <CategorySection title="Otros Productos" description="Selección especial de productos variados" icon={ShoppingBag} color="pink" link="/otros" image={othersIcon} />
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 bg-gradient-to-r from-primary via-secondary to-primary relative overflow-hidden">
+      <section className="py-16 px-6 bg-gradient-to-r from-primary via-secondary to-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="text-5xl md:text-6xl font-black text-primary-foreground mb-6 animate-fade-in">
+          <h2 className="text-4xl md:text-5xl font-black text-primary-foreground mb-4 animate-fade-in">
             ¿Listo para Probar la Frescura?
           </h2>
-          <p className="text-2xl text-primary-foreground/90 mb-10 animate-fade-in animation-delay-200">
+          <p className="text-xl text-primary-foreground/90 mb-8 animate-fade-in animation-delay-200">
             Haz tu pedido hoy y recibe los productos más frescos en tu puerta
           </p>
-          <Button size="lg" className="text-xl px-12 py-8 bg-card text-primary hover:bg-card/90 shadow-2xl hover:scale-110 transition-all animate-scale-in animation-delay-400">
-            <ShoppingBag className="mr-3 h-7 w-7" />
+          <Button size="lg" className="text-lg px-10 py-6 bg-card text-primary hover:bg-card/90 shadow-2xl hover:scale-110 transition-all animate-scale-in animation-delay-400">
+            <ShoppingBag className="mr-3 h-6 w-6" />
             Comprar Ahora
           </Button>
         </div>
       </section>
 
       {/* Contact */}
-      <section className="py-20 px-6 bg-muted/30">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 animate-fade-in">Contáctanos</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className="py-16 px-6 bg-muted/30">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 animate-fade-in">Contáctanos</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <a 
               href="tel:+573167538266"
-              className="flex flex-col items-center text-center p-8 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in cursor-pointer"
+              className="flex flex-col items-center text-center p-6 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in cursor-pointer"
             >
-              <Phone className="h-14 w-14 text-primary mb-4" />
-              <h3 className="text-xl font-bold mb-2">Teléfono</h3>
+              <Phone className="h-12 w-12 text-primary mb-3" />
+              <h3 className="text-lg font-bold mb-2">Teléfono</h3>
               <p className="text-muted-foreground font-medium">+57 316 753 8266</p>
             </a>
 
             <a 
               href="mailto:ferneycastro75@gmail.com"
-              className="flex flex-col items-center text-center p-8 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in cursor-pointer"
+              className="flex flex-col items-center text-center p-6 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in cursor-pointer"
               style={{ animationDelay: '0.1s' }}
             >
-              <Mail className="h-14 w-14 text-secondary mb-4" />
-              <h3 className="text-xl font-bold mb-2">Email</h3>
+              <Mail className="h-12 w-12 text-secondary mb-3" />
+              <h3 className="text-lg font-bold mb-2">Email</h3>
               <p className="text-muted-foreground font-medium">ferneycastro75@gmail.com</p>
             </a>
 
@@ -195,11 +184,11 @@ const Index = () => {
               href="https://wa.me/573167538266"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center text-center p-8 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in cursor-pointer"
+              className="flex flex-col items-center text-center p-6 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in cursor-pointer"
               style={{ animationDelay: '0.2s' }}
             >
-              <Phone className="h-14 w-14 text-accent mb-4" />
-              <h3 className="text-xl font-bold mb-2">WhatsApp</h3>
+              <Phone className="h-12 w-12 text-accent mb-3" />
+              <h3 className="text-lg font-bold mb-2">WhatsApp</h3>
               <p className="text-muted-foreground font-medium">+57 316 753 8266</p>
             </a>
           </div>
