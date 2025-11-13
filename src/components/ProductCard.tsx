@@ -6,11 +6,12 @@ interface ProductCardProps {
   name: string;
   description: string;
   price: string;
-  category: "fruits" | "vegetables" | "others";
+  category: "fruits" | "vegetables" | "others" | "offers";
   image?: string;
+  discount_percentage?: number;
 }
 
-const ProductCard = ({ name, description, price, category }: ProductCardProps) => {
+const ProductCard = ({ name, description, price, category, discount_percentage }: ProductCardProps) => {
   const categoryConfig = {
     fruits: {
       borderColor: "border-l-primary",
@@ -30,6 +31,12 @@ const ProductCard = ({ name, description, price, category }: ProductCardProps) =
       priceColor: "text-pink",
       glowColor: "group-hover:shadow-pink/30"
     },
+    offers: {
+      borderColor: "border-l-pink",
+      badgeColor: "bg-pink/10 text-pink",
+      priceColor: "text-pink",
+      glowColor: "group-hover:shadow-pink/30"
+    },
   };
 
   const config = categoryConfig[category];
@@ -37,6 +44,12 @@ const ProductCard = ({ name, description, price, category }: ProductCardProps) =
   return (
     <Card className={`group relative overflow-hidden ${config.borderColor} border-l-4 hover:shadow-2xl ${config.glowColor} transition-all duration-500 hover:scale-105 hover:-translate-y-2 cursor-pointer bg-gradient-to-br from-card to-card/50`}>
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+      
+      {discount_percentage && (
+        <div className="absolute top-4 right-4 bg-gradient-to-br from-pink to-accent text-white px-4 py-2 text-sm font-black rounded-full shadow-lg z-20 animate-pulse-glow">
+          -{discount_percentage}%
+        </div>
+      )}
       
       <CardHeader className="relative z-10">
         <div className="flex items-start justify-between mb-2">

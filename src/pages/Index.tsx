@@ -14,7 +14,8 @@ interface Product {
   name: string;
   description: string;
   price: string;
-  category: "fruits" | "vegetables" | "others";
+  category: "fruits" | "vegetables" | "others" | "offers";
+  discount_percentage?: number;
 }
 
 const Index = () => {

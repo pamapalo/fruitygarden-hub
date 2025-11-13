@@ -16,13 +16,14 @@ interface Product {
   description: string;
   price: string;
   category: string;
+  discount_percentage?: number;
 }
 
 const Ofertas = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [newProduct, setNewProduct] = useState({ name: "", description: "", price: "" });
+  const [newProduct, setNewProduct] = useState({ name: "", description: "", price: "", discount_percentage: "" });
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -56,13 +57,14 @@ const Ofertas = () => {
       description: newProduct.description,
       price: newProduct.price,
       category: "offers",
+      discount_percentage: newProduct.discount_percentage ? parseInt(newProduct.discount_percentage) : null,
     });
 
     if (error) {
       toast({ title: "Error", description: "No se pudo agregar la oferta", variant: "destructive" });
     } else {
       toast({ title: "Éxito", description: "Oferta agregada correctamente" });
-      setNewProduct({ name: "", description: "", price: "" });
+      setNewProduct({ name: "", description: "", price: "", discount_percentage: "" });
       setOpen(false);
       fetchProducts();
     }
@@ -138,6 +140,18 @@ const Ofertas = () => {
                     placeholder="$9.99"
                   />
                 </div>
+                <div>
+                  <Label htmlFor="discount">Porcentaje de Descuento (%)</Label>
+                  <Input
+                    id="discount"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={newProduct.discount_percentage}
+                    onChange={(e) => setNewProduct({ ...newProduct, discount_percentage: e.target.value })}
+                    placeholder="20"
+                  />
+                </div>
                 <Button onClick={handleAddProduct} className="w-full">
                   Agregar Oferta
                 </Button>
@@ -158,10 +172,15 @@ const Ofertas = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
               <Card key={product.id} className="border-l-4 border-l-pink hover:shadow-2xl transition-all hover:scale-105 relative overflow-hidden">
-                <div className="absolute top-0 right-0 bg-pink text-pink-foreground px-4 py-1 text-xs font-bold rounded-bl-lg">
+                {product.discount_percentage && (
+                  <div className="absolute top-4 right-4 bg-gradient-to-br from-pink to-accent text-white px-6 py-3 text-lg font-black rounded-full shadow-lg z-10 animate-pulse-glow">
+                    -{product.discount_percentage}%
+                  </div>
+                )}
+                <div className="absolute top-0 left-0 bg-pink text-pink-foreground px-4 py-1 text-xs font-bold rounded-br-lg">
                   OFERTA
                 </div>
-                <CardHeader className="pt-8">
+                <CardHeader className="pt-12">
                   <CardTitle className="text-xl">{product.name}</CardTitle>
                   <CardDescription>{product.description}</CardDescription>
                 </CardHeader>
