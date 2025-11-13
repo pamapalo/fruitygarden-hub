@@ -66,7 +66,12 @@ const Index = () => {
               <Sparkles className="mr-2 h-6 w-6" />
               Explorar Productos
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-10 py-7 bg-card/95 backdrop-blur-md hover:bg-card border-2 border-primary-foreground/40 hover:scale-110 transition-all shadow-xl">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="text-lg px-10 py-7 bg-card/95 backdrop-blur-md hover:bg-card border-2 border-primary-foreground/40 hover:scale-110 transition-all shadow-xl"
+              onClick={() => window.location.href = '/ofertas'}
+            >
               <TrendingUp className="mr-2 h-6 w-6" />
               Ofertas Especiales
             </Button>
