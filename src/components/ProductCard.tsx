@@ -16,9 +16,10 @@ interface ProductCardProps {
   image?: string;
   discount_percentage?: number;
   original_price?: string;
+  showCategoryIcon?: boolean;
 }
 
-const ProductCard = ({ id, name, description, price, category, discount_percentage, original_price }: ProductCardProps) => {
+const ProductCard = ({ id, name, description, price, category, discount_percentage, original_price, image, showCategoryIcon = false }: ProductCardProps) => {
   const { addItem } = useCart();
   const { toast } = useToast();
 
@@ -76,14 +77,16 @@ const ProductCard = ({ id, name, description, price, category, discount_percenta
     <Card className={`group relative overflow-hidden ${config.borderColor} border-l-4 hover:shadow-2xl ${config.glowColor} transition-all duration-500 hover:scale-105 hover:-translate-y-2 cursor-pointer bg-gradient-to-br from-card to-card/50`}>
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
       
-      <img 
-        src={config.icon} 
-        alt={`${category} icon`}
-        className="absolute top-3 right-3 w-12 h-12 object-cover rounded-lg shadow-md z-10 opacity-80 group-hover:opacity-100 transition-opacity"
-      />
+      {showCategoryIcon && (
+        <img 
+          src={image || config.icon} 
+          alt={`${category} icon`}
+          className="absolute top-3 right-3 w-12 h-12 object-cover rounded-lg shadow-md z-10 opacity-80 group-hover:opacity-100 transition-opacity"
+        />
+      )}
       
       {discount_percentage && (
-        <div className="absolute top-4 right-20 bg-gradient-to-br from-pink to-accent text-white px-4 py-2 text-sm font-black rounded-full shadow-lg z-20 animate-pulse-glow">
+        <div className={`absolute top-4 ${showCategoryIcon ? 'right-20' : 'right-4'} bg-gradient-to-br from-pink to-accent text-white px-4 py-2 text-sm font-black rounded-full shadow-lg z-20 animate-pulse-glow`}>
           -{discount_percentage}%
         </div>
       )}

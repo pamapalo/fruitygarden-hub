@@ -3,19 +3,22 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Trash2, Plus, ArrowLeft } from "lucide-react";
+import { Plus, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import ProductCard from "@/components/ProductCard";
 
 interface Product {
   id: string;
   name: string;
   description: string;
   price: string;
-  category: string;
+  category: "fruits" | "vegetables" | "others" | "offers";
+  image_url?: string;
+  discount_percentage?: number;
+  original_price?: string;
 }
 
 const Fruits = () => {
@@ -36,7 +39,7 @@ const Fruits = () => {
     if (error) {
       toast({ title: "Error", description: "No se pudieron cargar los productos", variant: "destructive" });
     } else {
-      setProducts(data || []);
+      setProducts((data as Product[]) || []);
     }
     setLoading(false);
   };
@@ -150,24 +153,11 @@ const Fruits = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
-              <Card key={product.id} className="border-l-4 border-l-primary hover:shadow-lg transition-all">
-                <CardHeader>
-                  <CardTitle className="text-xl">{product.name}</CardTitle>
-                  <CardDescription>{product.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-primary">{product.price}</span>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => handleDeleteProduct(product.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              <ProductCard 
+                key={product.id}
+                {...product}
+                showCategoryIcon={true}
+              />
             ))}
           </div>
         )}
