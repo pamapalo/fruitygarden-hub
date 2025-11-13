@@ -32,7 +32,7 @@ const Ofertas = () => {
     const { data, error } = await supabase
       .from("products")
       .select("*")
-      .eq("category", "offers")
+      .not("discount_percentage", "is", null)
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -53,11 +53,20 @@ const Ofertas = () => {
       return;
     }
 
+    // Determinar la categoría basada en el nombre del producto
+    let category = "others";
+    const nameLower = newProduct.name.toLowerCase();
+    if (nameLower.includes("fruta") || nameLower.includes("fresa") || nameLower.includes("mango") || nameLower.includes("banana")) {
+      category = "fruits";
+    } else if (nameLower.includes("verdura") || nameLower.includes("vegetal") || nameLower.includes("tomate") || nameLower.includes("lechuga")) {
+      category = "vegetables";
+    }
+
     const { error } = await supabase.from("products").insert({
       name: newProduct.name,
       description: newProduct.description,
       price: newProduct.price,
-      category: "offers",
+      category: category,
       discount_percentage: newProduct.discount_percentage ? parseInt(newProduct.discount_percentage) : null,
       original_price: newProduct.original_price || null,
     });
@@ -200,17 +209,17 @@ const Ofertas = () => {
                 <CardContent>
                   <div className="flex items-center justify-between">
                     <div className="flex flex-col gap-1">
-                      {product.original_price && (
+                      {product.original_price && parseFloat(product.original_price) > 0 && (
                         <span className="text-sm text-muted-foreground line-through">
-                          ${parseInt(product.original_price).toLocaleString('es-CO')} COP
+                          ${parseFloat(product.original_price).toLocaleString('es-CO')} COP
                         </span>
                       )}
                       <span className="text-2xl font-bold text-pink">
-                        ${parseInt(product.price).toLocaleString('es-CO')} COP
+                        ${parseFloat(product.price || '0').toLocaleString('es-CO')} COP
                       </span>
-                      {product.original_price && (
+                      {product.original_price && parseFloat(product.original_price) > 0 && parseFloat(product.price || '0') > 0 && (
                         <span className="text-xs text-accent font-semibold">
-                          Ahorras: ${(parseInt(product.original_price) - parseInt(product.price)).toLocaleString('es-CO')} COP
+                          Ahorras: ${(parseFloat(product.original_price) - parseFloat(product.price || '0')).toLocaleString('es-CO')} COP
                         </span>
                       )}
                     </div>

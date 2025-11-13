@@ -139,7 +139,7 @@ const Index = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product, i) => (
-              <div key={i} className="animate-scale-in" style={{ animationDelay: `${i * 0.1}s` }}>
+              <div key={product.id} className="animate-scale-in" style={{ animationDelay: `${i * 0.1}s` }}>
                 <ProductCard {...product} />
               </div>
             ))}
