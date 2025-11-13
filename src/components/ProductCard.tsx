@@ -1,8 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Sparkles } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
 
 interface ProductCardProps {
+  id: string;
   name: string;
   description: string;
   price: string;
@@ -12,7 +15,27 @@ interface ProductCardProps {
   original_price?: string;
 }
 
-const ProductCard = ({ name, description, price, category, discount_percentage, original_price }: ProductCardProps) => {
+const ProductCard = ({ id, name, description, price, category, discount_percentage, original_price }: ProductCardProps) => {
+  const { addItem } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = () => {
+    const priceNum = parseFloat(price.replace(/[^\d]/g, '')) || 0;
+    const originalPriceNum = original_price ? parseFloat(original_price.replace(/[^\d]/g, '')) : undefined;
+    
+    addItem({
+      id,
+      name,
+      price: priceNum,
+      original_price: originalPriceNum,
+      category
+    });
+    
+    toast({
+      title: "Producto añadido",
+      description: `${name} se agregó al carrito`,
+    });
+  };
   const categoryConfig = {
     fruits: {
       borderColor: "border-l-primary",
@@ -66,17 +89,17 @@ const ProductCard = ({ name, description, price, category, discount_percentage, 
       <CardContent className="relative z-10">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-1">
-            {original_price && (
+            {original_price && parseFloat(original_price.replace(/[^\d]/g, '')) > 0 && (
               <span className="text-sm text-muted-foreground line-through">
-                ${parseInt(original_price).toLocaleString('es-CO')} COP
+                ${parseFloat(original_price.replace(/[^\d]/g, '')).toLocaleString('es-CO')} COP
               </span>
             )}
             <span className={`text-3xl font-black ${config.priceColor} group-hover:scale-110 transition-transform`}>
-              ${parseInt(price).toLocaleString('es-CO')} COP
+              ${parseFloat(price.replace(/[^\d]/g, '') || '0').toLocaleString('es-CO')} COP
             </span>
-            {original_price && (
+            {original_price && parseFloat(original_price.replace(/[^\d]/g, '')) > 0 && parseFloat(price.replace(/[^\d]/g, '')) > 0 && (
               <span className="text-xs text-accent font-semibold">
-                Ahorras: ${(parseInt(original_price) - parseInt(price)).toLocaleString('es-CO')}
+                Ahorras: ${(parseFloat(original_price.replace(/[^\d]/g, '')) - parseFloat(price.replace(/[^\d]/g, ''))).toLocaleString('es-CO')} COP
               </span>
             )}
           </div>
@@ -84,6 +107,7 @@ const ProductCard = ({ name, description, price, category, discount_percentage, 
             size="sm" 
             variant="default"
             className="shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300"
+            onClick={handleAddToCart}
           >
             <ShoppingCart className="mr-2 h-4 w-4" />
             Añadir

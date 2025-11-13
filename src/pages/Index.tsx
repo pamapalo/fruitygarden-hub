@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ProductCard";
 import CategorySection from "@/components/CategorySection";
+import CartButton from "@/components/CartButton";
 import { Apple, Carrot, ShoppingBag, Phone, Mail, MapPin, Sparkles, TrendingUp, Award } from "lucide-react";
 import heroImage from "@/assets/hero-produce.jpg";
 import fruitsIcon from "@/assets/fruits-icon.jpg";
@@ -39,6 +40,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen overflow-hidden">
+      {/* Fixed Cart Button */}
+      <div className="fixed top-6 right-6 z-50">
+        <CartButton />
+      </div>
+
       {/* Hero Section - Ultra Impactante */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div 
