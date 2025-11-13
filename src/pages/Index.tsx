@@ -122,17 +122,36 @@ const Index = () => {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 animate-fade-in">Contáctanos</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { icon: Phone, title: "Teléfono", info: "+1 (555) 123-4567", color: "text-primary" },
-              { icon: Mail, title: "Email", info: "info@productosfresco.com", color: "text-secondary" },
-              { icon: MapPin, title: "Ubicación", info: "Ciudad, Estado", color: "text-accent" }
-            ].map((contact, i) => (
-              <div key={i} className="flex flex-col items-center text-center p-8 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in" style={{ animationDelay: `${i * 0.1}s` }}>
-                <contact.icon className={`h-14 w-14 ${contact.color} mb-4`} />
-                <h3 className="text-xl font-bold mb-2">{contact.title}</h3>
-                <p className="text-muted-foreground font-medium">{contact.info}</p>
-              </div>
-            ))}
+            <a 
+              href="tel:+573167538266"
+              className="flex flex-col items-center text-center p-8 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in cursor-pointer"
+            >
+              <Phone className="h-14 w-14 text-primary mb-4" />
+              <h3 className="text-xl font-bold mb-2">Teléfono</h3>
+              <p className="text-muted-foreground font-medium">+57 316 753 8266</p>
+            </a>
+
+            <a 
+              href="mailto:ferneycastro75@gmail.com"
+              className="flex flex-col items-center text-center p-8 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in cursor-pointer"
+              style={{ animationDelay: '0.1s' }}
+            >
+              <Mail className="h-14 w-14 text-secondary mb-4" />
+              <h3 className="text-xl font-bold mb-2">Email</h3>
+              <p className="text-muted-foreground font-medium">ferneycastro75@gmail.com</p>
+            </a>
+
+            <a 
+              href="https://wa.me/573167538266"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center text-center p-8 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in cursor-pointer"
+              style={{ animationDelay: '0.2s' }}
+            >
+              <Phone className="h-14 w-14 text-accent mb-4" />
+              <h3 className="text-xl font-bold mb-2">WhatsApp</h3>
+              <p className="text-muted-foreground font-medium">+57 316 753 8266</p>
+            </a>
           </div>
         </div>
       </section>
