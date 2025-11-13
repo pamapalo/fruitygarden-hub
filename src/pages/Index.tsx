@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import CategorySection from "@/components/CategorySection";
 import CartButton from "@/components/CartButton";
 import { Apple, Carrot, ShoppingBag, Phone, Mail, MapPin, Sparkles, TrendingUp, Award } from "lucide-react";
@@ -103,40 +102,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Products Table Section */}
-      <section ref={productsRef} className="py-20 px-6 bg-background">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Todos Nuestros Productos
-            </h2>
-            <p className="text-xl text-muted-foreground">Explora nuestra selección completa organizados por categoría</p>
-          </div>
-          
-          <div className="bg-card rounded-2xl shadow-xl overflow-hidden">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="text-lg font-bold">Categoría</TableHead>
-                  <TableHead className="text-lg font-bold">Producto</TableHead>
-                  <TableHead className="text-lg font-bold text-right">Precio</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {products.map((product) => (
-                  <TableRow key={product.id} className="hover:bg-muted/50 transition-colors">
-                    <TableCell className="font-semibold text-primary">
-                      {categoryNames[product.category] || product.category}
-                    </TableCell>
-                    <TableCell className="font-medium">{product.name}</TableCell>
-                    <TableCell className="text-right font-bold text-lg">{product.price}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </div>
-      </section>
 
       {/* Stats Section */}
       <section className="py-16 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10">
@@ -157,7 +122,7 @@ const Index = () => {
       </section>
 
       {/* Categories Section */}
-      <section className="py-24 px-6 bg-gradient-to-b from-background to-muted/30">
+      <section ref={productsRef} className="py-24 px-6 bg-gradient-to-b from-background to-muted/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-5xl md:text-6xl font-black mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
@@ -166,10 +131,45 @@ const Index = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Explora nuestra selección premium de productos frescos</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <CategorySection title="Frutas" description="Fresas, arándanos, cítricos y más" icon={Apple} color="primary" link="/frutas" image={fruitsIcon} />
-            <CategorySection title="Vegetales" description="Vegetales frescos y orgánicos" icon={Carrot} color="secondary" link="/vegetales" image={vegetablesIcon} />
-            <CategorySection title="Otros Productos" description="Selección especial de productos variados" icon={ShoppingBag} color="pink" link="/otros" image={othersIcon} />
+          <div className="space-y-16">
+            {/* Frutas */}
+            <div className="space-y-8">
+              <CategorySection title="Frutas" description="Fresas, arándanos, cítricos y más" icon={Apple} color="primary" link="/frutas" image={fruitsIcon} />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
+                {products.filter(p => p.category === 'fruits').map((product) => (
+                  <div key={product.id} className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-primary/20 hover:border-primary/40 hover:shadow-lg transition-all">
+                    <h4 className="font-bold text-lg mb-2">{product.name}</h4>
+                    <p className="text-2xl font-black text-primary">{product.price}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Vegetales */}
+            <div className="space-y-8">
+              <CategorySection title="Vegetales" description="Vegetales frescos y orgánicos" icon={Carrot} color="secondary" link="/vegetales" image={vegetablesIcon} />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
+                {products.filter(p => p.category === 'vegetables').map((product) => (
+                  <div key={product.id} className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-secondary/20 hover:border-secondary/40 hover:shadow-lg transition-all">
+                    <h4 className="font-bold text-lg mb-2">{product.name}</h4>
+                    <p className="text-2xl font-black text-secondary">{product.price}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Otros Productos */}
+            <div className="space-y-8">
+              <CategorySection title="Otros Productos" description="Selección especial de productos variados" icon={ShoppingBag} color="pink" link="/otros" image={othersIcon} />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
+                {products.filter(p => p.category === 'others').map((product) => (
+                  <div key={product.id} className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-pink/20 hover:border-pink/40 hover:shadow-lg transition-all">
+                    <h4 className="font-bold text-lg mb-2">{product.name}</h4>
+                    <p className="text-2xl font-black text-pink">{product.price}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
