@@ -135,40 +135,16 @@ const Index = () => {
             {/* Frutas */}
             <div className="space-y-8">
               <CategorySection title="Frutas" description="Fresas, arándanos, cítricos y más" icon={Apple} color="primary" link="/frutas" image={fruitsIcon} />
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
-                {products.filter(p => p.category === 'fruits').map((product) => (
-                  <div key={product.id} className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-primary/20 hover:border-primary/40 hover:shadow-lg transition-all">
-                    <h4 className="font-bold text-lg mb-2">{product.name}</h4>
-                    <p className="text-2xl font-black text-primary">{product.price}</p>
-                  </div>
-                ))}
-              </div>
             </div>
 
             {/* Vegetales */}
             <div className="space-y-8">
               <CategorySection title="Vegetales" description="Vegetales frescos y orgánicos" icon={Carrot} color="secondary" link="/vegetales" image={vegetablesIcon} />
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
-                {products.filter(p => p.category === 'vegetables').map((product) => (
-                  <div key={product.id} className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-secondary/20 hover:border-secondary/40 hover:shadow-lg transition-all">
-                    <h4 className="font-bold text-lg mb-2">{product.name}</h4>
-                    <p className="text-2xl font-black text-secondary">{product.price}</p>
-                  </div>
-                ))}
-              </div>
             </div>
 
             {/* Otros Productos */}
             <div className="space-y-8">
               <CategorySection title="Otros Productos" description="Selección especial de productos variados" icon={ShoppingBag} color="pink" link="/otros" image={othersIcon} />
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
-                {products.filter(p => p.category === 'others').map((product) => (
-                  <div key={product.id} className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-pink/20 hover:border-pink/40 hover:shadow-lg transition-all">
-                    <h4 className="font-bold text-lg mb-2">{product.name}</h4>
-                    <p className="text-2xl font-black text-pink">{product.price}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>
