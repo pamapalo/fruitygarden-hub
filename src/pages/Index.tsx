@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import ProductCard from "@/components/ProductCard";
 import CategorySection from "@/components/CategorySection";
 import CartButton from "@/components/CartButton";
 import { Apple, Carrot, ShoppingBag, Phone, Mail, MapPin, Sparkles, TrendingUp, Award } from "lucide-react";
@@ -7,37 +6,8 @@ import heroImage from "@/assets/hero-produce.jpg";
 import fruitsIcon from "@/assets/fruits-icon.jpg";
 import vegetablesIcon from "@/assets/vegetables-icon.jpg";
 import othersIcon from "@/assets/others-icon.jpg";
-import { supabase } from "@/integrations/supabase/client";
-import { useState, useEffect } from "react";
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: string;
-  category: "fruits" | "vegetables" | "others" | "offers";
-  discount_percentage?: number;
-  original_price?: string;
-}
 
 const Index = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const { data, error } = await supabase
-        .from("products")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (!error && data) {
-        setProducts(data as Product[]);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
   return (
     <div className="min-h-screen overflow-hidden">
       {/* Fixed Cart Button */}
@@ -126,23 +96,6 @@ const Index = () => {
             <CategorySection title="Frutas" description="Fresas, arándanos, cítricos y más" icon={Apple} color="primary" link="/frutas" image={fruitsIcon} />
             <CategorySection title="Vegetales" description="Vegetales frescos y orgánicos" icon={Carrot} color="secondary" link="/vegetales" image={vegetablesIcon} />
             <CategorySection title="Otros Productos" description="Selección especial de productos variados" icon={ShoppingBag} color="pink" link="/otros" image={othersIcon} />
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="py-24 px-6 bg-gradient-to-b from-muted/30 to-background">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-5xl md:text-6xl font-black mb-4">Productos Destacados</h2>
-            <p className="text-xl text-muted-foreground">Lo mejor de nuestra selección</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product, i) => (
-              <div key={product.id} className="animate-scale-in" style={{ animationDelay: `${i * 0.1}s` }}>
-                <ProductCard {...product} />
-              </div>
-            ))}
           </div>
         </div>
       </section>
