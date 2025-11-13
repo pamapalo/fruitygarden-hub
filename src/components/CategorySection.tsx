@@ -9,9 +9,10 @@ interface CategorySectionProps {
   icon: LucideIcon;
   color: "primary" | "secondary" | "accent" | "pink";
   link: string;
+  image?: string;
 }
 
-const CategorySection = ({ title, description, icon: Icon, color, link }: CategorySectionProps) => {
+const CategorySection = ({ title, description, icon: Icon, color, link, image }: CategorySectionProps) => {
   const navigate = useNavigate();
   
   const colorClasses = {
@@ -43,8 +44,12 @@ const CategorySection = ({ title, description, icon: Icon, color, link }: Catego
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-foreground/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
       
       <div className="flex flex-col items-center text-center space-y-6 relative z-10">
-        <div className={`p-6 rounded-2xl ${bgColors[color]} shadow-lg transition-all duration-300 ${iconColors[color]}`}>
-          <Icon className="h-16 w-16 transition-transform duration-300" />
+        <div className={`p-6 rounded-2xl ${bgColors[color]} shadow-lg transition-all duration-300 ${iconColors[color]} overflow-hidden`}>
+          {image ? (
+            <img src={image} alt={title} className="h-16 w-16 object-cover rounded-xl transition-transform duration-300 group-hover:scale-110" />
+          ) : (
+            <Icon className="h-16 w-16 transition-transform duration-300" />
+          )}
         </div>
         
         <h3 className="text-3xl font-black group-hover:text-primary transition-colors">{title}</h3>

@@ -3,6 +3,9 @@ import ProductCard from "@/components/ProductCard";
 import CategorySection from "@/components/CategorySection";
 import { Apple, Carrot, ShoppingBag, Phone, Mail, MapPin, Sparkles, TrendingUp, Award } from "lucide-react";
 import heroImage from "@/assets/hero-produce.jpg";
+import fruitsIcon from "@/assets/fruits-icon.jpg";
+import vegetablesIcon from "@/assets/vegetables-icon.jpg";
+import othersIcon from "@/assets/others-icon.jpg";
 import { supabase } from "@/integrations/supabase/client";
 import { useState, useEffect } from "react";
 
@@ -107,9 +110,9 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <CategorySection title="Frutas" description="Fresas, arándanos, cítricos y más" icon={Apple} color="primary" link="/frutas" />
-            <CategorySection title="Vegetales" description="Vegetales frescos y orgánicos" icon={Carrot} color="secondary" link="/vegetales" />
-            <CategorySection title="Otros Productos" description="Selección especial de productos variados" icon={ShoppingBag} color="pink" link="/otros" />
+            <CategorySection title="Frutas" description="Fresas, arándanos, cítricos y más" icon={Apple} color="primary" link="/frutas" image={fruitsIcon} />
+            <CategorySection title="Vegetales" description="Vegetales frescos y orgánicos" icon={Carrot} color="secondary" link="/vegetales" image={vegetablesIcon} />
+            <CategorySection title="Otros Productos" description="Selección especial de productos variados" icon={ShoppingBag} color="pink" link="/otros" image={othersIcon} />
           </div>
         </div>
       </section>
