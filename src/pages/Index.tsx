@@ -60,7 +60,7 @@ const Index = () => {
         
         <div className="relative z-10 text-center text-primary-foreground max-w-5xl px-6 animate-slide-up">
           <div className="mb-6 inline-flex items-center gap-2 bg-primary-foreground/20 backdrop-blur-md px-6 py-3 rounded-full border border-primary-foreground/30 animate-float">
-            <Award className="h-5 w-5" />
+            <Award className="h-6 w-6" />
             <span className="text-sm font-semibold">Productos 100% Frescos y Naturales</span>
           </div>
           
