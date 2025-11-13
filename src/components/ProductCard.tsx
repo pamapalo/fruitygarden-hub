@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, Sparkles } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
+import fruitsIcon from "@/assets/fruits-icon.jpg";
+import vegetablesIcon from "@/assets/vegetables-icon.jpg";
+import othersIcon from "@/assets/others-icon.jpg";
 
 interface ProductCardProps {
   id: string;
@@ -41,25 +44,29 @@ const ProductCard = ({ id, name, description, price, category, discount_percenta
       borderColor: "border-l-primary",
       badgeColor: "bg-primary/10 text-primary",
       priceColor: "text-primary",
-      glowColor: "group-hover:shadow-primary/30"
+      glowColor: "group-hover:shadow-primary/30",
+      icon: fruitsIcon
     },
     vegetables: {
       borderColor: "border-l-secondary",
       badgeColor: "bg-secondary/10 text-secondary",
       priceColor: "text-secondary",
-      glowColor: "group-hover:shadow-secondary/30"
+      glowColor: "group-hover:shadow-secondary/30",
+      icon: vegetablesIcon
     },
     others: {
       borderColor: "border-l-pink",
       badgeColor: "bg-pink/10 text-pink",
       priceColor: "text-pink",
-      glowColor: "group-hover:shadow-pink/30"
+      glowColor: "group-hover:shadow-pink/30",
+      icon: othersIcon
     },
     offers: {
       borderColor: "border-l-pink",
       badgeColor: "bg-pink/10 text-pink",
       priceColor: "text-pink",
-      glowColor: "group-hover:shadow-pink/30"
+      glowColor: "group-hover:shadow-pink/30",
+      icon: othersIcon
     },
   };
 
@@ -69,8 +76,14 @@ const ProductCard = ({ id, name, description, price, category, discount_percenta
     <Card className={`group relative overflow-hidden ${config.borderColor} border-l-4 hover:shadow-2xl ${config.glowColor} transition-all duration-500 hover:scale-105 hover:-translate-y-2 cursor-pointer bg-gradient-to-br from-card to-card/50`}>
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
       
+      <img 
+        src={config.icon} 
+        alt={`${category} icon`}
+        className="absolute top-3 right-3 w-12 h-12 object-cover rounded-lg shadow-md z-10 opacity-80 group-hover:opacity-100 transition-opacity"
+      />
+      
       {discount_percentage && (
-        <div className="absolute top-4 right-4 bg-gradient-to-br from-pink to-accent text-white px-4 py-2 text-sm font-black rounded-full shadow-lg z-20 animate-pulse-glow">
+        <div className="absolute top-4 right-20 bg-gradient-to-br from-pink to-accent text-white px-4 py-2 text-sm font-black rounded-full shadow-lg z-20 animate-pulse-glow">
           -{discount_percentage}%
         </div>
       )}
