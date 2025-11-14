@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import CategorySection from "@/components/CategorySection";
 import CartButton from "@/components/CartButton";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import { Apple, Carrot, ShoppingBag, Phone, Mail, MapPin, Sparkles, TrendingUp, Award } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState, useRef } from "react";
@@ -107,16 +108,20 @@ const Index = () => {
       <section className="py-12 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { number: "100+", label: "Clientes Satisfechos" },
-              { number: "100%", label: "Productos Frescos" },
-              { number: "24h", label: "Entrega Rápida" }
-            ].map((stat, i) => (
-              <div key={i} className="text-center p-6 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="text-4xl font-black text-primary mb-2">{stat.number}</div>
-                <div className="text-base font-semibold text-muted-foreground">{stat.label}</div>
-              </div>
-            ))}
+            <div className="text-center p-6 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in">
+              <AnimatedCounter end={100} suffix="+" duration={2500} />
+              <div className="text-base font-semibold text-muted-foreground">Clientes Satisfechos</div>
+            </div>
+            
+            <div className="text-center p-6 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in" style={{ animationDelay: '0.1s' }}>
+              <AnimatedCounter end={100} suffix="%" duration={2500} />
+              <div className="text-base font-semibold text-muted-foreground">Productos Frescos</div>
+            </div>
+            
+            <div className="text-center p-6 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in" style={{ animationDelay: '0.2s' }}>
+              <div className="text-4xl font-black text-primary mb-2">24h</div>
+              <div className="text-base font-semibold text-muted-foreground">Entrega Rápida</div>
+            </div>
           </div>
         </div>
       </section>
