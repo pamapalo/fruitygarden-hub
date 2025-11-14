@@ -108,7 +108,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { number: "5000+", label: "Clientes Satisfechos" },
+              { number: "100+", label: "Clientes Satisfechos" },
               { number: "100%", label: "Productos Frescos" },
               { number: "24h", label: "Entrega Rápida" }
             ].map((stat, i) => (
