@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { LogOut, LogIn } from "lucide-react";
 import CategorySection from "@/components/CategorySection";
 import CartButton from "@/components/CartButton";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import { Apple, Carrot, ShoppingBag, Phone, Mail, MapPin, Sparkles, TrendingUp, Award } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState, useRef } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-produce.jpg";
 import fruitsIcon from "@/assets/fruits-icon.jpg";
 import vegetablesIcon from "@/assets/vegetables-icon.jpg";
@@ -20,6 +23,8 @@ interface Product {
 const Index = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const productsRef = useRef<HTMLElement>(null);
+  const { user, signOut, isAdmin } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,6 +36,14 @@ const Index = () => {
     };
     fetchProducts();
   }, []);
+
+  const handleAuthAction = () => {
+    if (user) {
+      signOut();
+    } else {
+      navigate("/auth");
+    }
+  };
 
   const scrollToProducts = () => {
     productsRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -44,8 +57,16 @@ const Index = () => {
   };
   return (
     <div className="min-h-screen max-h-screen overflow-y-auto">
-      {/* Fixed Cart Button */}
-      <div className="fixed top-4 right-4 z-50">
+      {/* Fixed Cart Button & Auth Button */}
+      <div className="fixed top-4 right-4 z-50 flex gap-2">
+        <Button
+          onClick={handleAuthAction}
+          variant={user ? "outline" : "default"}
+          size="icon"
+          className="rounded-full"
+        >
+          {user ? <LogOut className="h-4 w-4" /> : <LogIn className="h-4 w-4" />}
+        </Button>
         <CartButton />
       </div>
 

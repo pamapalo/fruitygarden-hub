@@ -4,9 +4,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Trash2, Plus, X } from "lucide-react";
+import { Trash2, Plus, X, Lock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 import { z } from "zod";
 
 interface ProductManagerProps {
@@ -32,6 +33,7 @@ const ProductManager = ({ category, products, onProductsChange }: ProductManager
   const [formData, setFormData] = useState({ name: "", description: "", price: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const { isAdmin, user } = useAuth();
 
   const categoryColors = {
     fruits: { border: "border-primary", bg: "bg-primary/5", text: "text-primary" },
@@ -106,6 +108,31 @@ const ProductManager = ({ category, products, onProductsChange }: ProductManager
       });
     }
   };
+
+  if (!user) {
+    return (
+      <div className="text-center py-12">
+        <Lock className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+        <p className="text-muted-foreground text-lg mb-4">
+          Debes iniciar sesión para ver esta sección
+        </p>
+        <Button onClick={() => window.location.href = '/auth'}>
+          Iniciar Sesión
+        </Button>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="text-center py-12">
+        <Lock className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+        <p className="text-muted-foreground text-lg">
+          Solo los administradores pueden gestionar productos
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
