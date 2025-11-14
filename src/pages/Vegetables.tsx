@@ -157,6 +157,7 @@ const Vegetables = () => {
                 key={product.id}
                 {...product}
                 showCategoryIcon={true}
+                onDelete={handleDeleteProduct}
               />
             ))}
           </div>
