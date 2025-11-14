@@ -6,9 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Trash2, Plus, Minus } from "lucide-react";
+import { useState } from "react";
+import PaymentDialog from "./PaymentDialog";
 
 const CartButton = () => {
   const { items, totalItems, totalPrice, removeItem, updateQuantity, clearCart } = useCart();
+  const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
 
   return (
     <Sheet>
@@ -109,7 +112,7 @@ const CartButton = () => {
                 <Button variant="outline" onClick={clearCart} className="flex-1">
                   Vaciar Carrito
                 </Button>
-                <Button className="flex-1">
+                <Button className="flex-1" onClick={() => setPaymentDialogOpen(true)}>
                   Finalizar Compra
                 </Button>
               </div>
@@ -117,6 +120,7 @@ const CartButton = () => {
           </>
         )}
       </SheetContent>
+      <PaymentDialog open={paymentDialogOpen} onOpenChange={setPaymentDialogOpen} />
     </Sheet>
   );
 };
