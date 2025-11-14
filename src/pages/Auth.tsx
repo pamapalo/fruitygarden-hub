@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,9 +19,16 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,7 +50,10 @@ const Auth = () => {
           title: "Sesión iniciada",
           description: "Bienvenido de vuelta",
         });
-        navigate("/");
+        // Small delay to ensure auth state updates
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -78,7 +88,10 @@ const Auth = () => {
           title: "Registro exitoso",
           description: "Tu cuenta ha sido creada",
         });
-        navigate("/");
+        // Small delay to ensure auth state updates
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
