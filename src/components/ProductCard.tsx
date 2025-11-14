@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Sparkles } from "lucide-react";
+import { ShoppingCart, Sparkles, Trash2 } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import fruitsIcon from "@/assets/fruits-icon.jpg";
@@ -17,9 +17,10 @@ interface ProductCardProps {
   discount_percentage?: number;
   original_price?: string;
   showCategoryIcon?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-const ProductCard = ({ id, name, description, price, category, discount_percentage, original_price, image, showCategoryIcon = false }: ProductCardProps) => {
+const ProductCard = ({ id, name, description, price, category, discount_percentage, original_price, image, showCategoryIcon = false, onDelete }: ProductCardProps) => {
   const { addItem } = useCart();
   const { toast } = useToast();
 
@@ -39,6 +40,12 @@ const ProductCard = ({ id, name, description, price, category, discount_percenta
       title: "Producto añadido",
       description: `${name} se agregó al carrito`,
     });
+  };
+
+  const handleDelete = () => {
+    if (onDelete) {
+      onDelete(id);
+    }
   };
   const categoryConfig = {
     fruits: {
@@ -119,15 +126,27 @@ const ProductCard = ({ id, name, description, price, category, discount_percenta
               </span>
             )}
           </div>
-          <Button 
-            size="sm" 
-            variant="default"
-            className="shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300"
-            onClick={handleAddToCart}
-          >
-            <ShoppingCart className="mr-2 h-4 w-4" />
-            Añadir
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              size="sm" 
+              variant="default"
+              className="shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300"
+              onClick={handleAddToCart}
+            >
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              Añadir
+            </Button>
+            {onDelete && (
+              <Button 
+                size="sm" 
+                variant="destructive"
+                className="shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300"
+                onClick={handleDelete}
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>
