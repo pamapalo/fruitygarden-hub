@@ -176,13 +176,13 @@ const Index = () => {
             </a>
 
             <a 
-              href="mailto:ferneycastro75@gmail.com"
+              href="mailto:adrisolanoflorez@hotmail.com"
               className="flex flex-col items-center text-center p-6 bg-card rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-scale-in cursor-pointer"
               style={{ animationDelay: '0.1s' }}
             >
               <Mail className="h-12 w-12 text-secondary mb-3" />
               <h3 className="text-lg font-bold mb-2">Email</h3>
-              <p className="text-muted-foreground font-medium">ferneycastro75@gmail.com</p>
+              <p className="text-muted-foreground font-medium">adrisolanoflorez@hotmail.com</p>
             </a>
 
             <a 
