@@ -11,6 +11,7 @@ import Vegetables from "./pages/Vegetables";
 import Others from "./pages/Others";
 import Ofertas from "./pages/Ofertas";
 import Auth from "./pages/Auth";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="/frutas" element={<Fruits />} />
               <Route path="/vegetales" element={<Vegetables />} />
               <Route path="/otros" element={<Others />} />

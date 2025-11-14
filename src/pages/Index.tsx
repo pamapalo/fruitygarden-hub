@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { LogOut, LogIn } from "lucide-react";
+import { LogOut, LogIn, Settings } from "lucide-react";
 import CategorySection from "@/components/CategorySection";
 import CartButton from "@/components/CartButton";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -59,6 +59,17 @@ const Index = () => {
     <div className="min-h-screen max-h-screen overflow-y-auto">
       {/* Fixed Cart Button & Auth Button */}
       <div className="fixed top-4 right-4 z-50 flex gap-2">
+        {isAdmin && (
+          <Button
+            onClick={() => navigate("/admin")}
+            variant="outline"
+            size="icon"
+            className="rounded-full"
+            title="Panel de Administración"
+          >
+            <Settings className="h-4 w-4" />
+          </Button>
+        )}
         <Button
           onClick={handleAuthAction}
           variant={user ? "outline" : "default"}
